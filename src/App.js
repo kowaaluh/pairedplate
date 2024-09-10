@@ -14,20 +14,19 @@ function App() {
   const [modal, setModal] = useState(false);
   const [url, setUrl] = useState('');
   const [disabled, setDisabled] = useState(false);
-
   const alert = useRef(null);
 
   const scrollToSection = () => {
     if (alert.current) {
-      alert.current.scrollIntoView({ behavior: 'smooth' });
+      alert.current.scrollIntoView({ behavior: 'auto' });
     }
   };
 
   const handleClick = (url) => {
-    scrollToSection();
-    setUrl(url);
     setModal(true);
+    setUrl(url);
     setDisabled(true);
+    scrollToSection();
   };
 
   const closeModal = () => {
@@ -77,7 +76,7 @@ function App() {
               className=" h-8 w-auto object-contain"
             />
         </header>
-        <div className="m-4 relative flex min-h-screen flex-col items-center justify-center overflow-hidden p-8 sm:p-12">
+        <div ref={alert} className="m-4 relative flex min-h-screen flex-col items-center justify-center overflow-hidden p-8 sm:p-12">
           <div className="w-full max-w-4xl rounded-md border-2 border-gray-200 bg-white p-14" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
             <div className="flex flex-col items-center">
               <span className="rounded-lg bg-yellow-600 py-px px-2 text-sm text-white">50+ restaurants added this week</span>
@@ -88,9 +87,9 @@ function App() {
               </form>
             </div>
           </div>
-            {modal? (
-              <div class="max-w-lg mx-auto">
-                  <div ref={alert} className="m-4 flex items-center justify-center">
+            {modal && (
+              <div className="max-w-lg mx-auto">
+                  <div className="m-4 flex items-center justify-center">
                     <div className="w-96 rounded-xl p-5 border border-gray-200 bg-yellow-600">
                         <p className="text-center text-white font-bold  text-lg"> You are about to leave this site. Are you sure you want to continue? </p>
                         <div className="m-2 flex justify-center gap-4">
@@ -103,27 +102,26 @@ function App() {
                         </div>
                     </div>
                   </div>
-                  <div class="flex items-center justify-center mb-4">
-                    <div class="flex justify-center items-center space-x-1 text-sm text-gray-700">
-                          <svg fill='none' class="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
-                              <path clip-rule='evenodd'
+                  <div className="flex items-center justify-center mb-4">
+                    <div className="flex justify-center items-center space-x-1 text-sm text-gray-700">
+                          <svg fill='none' className="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
+                              <path clipRule='evenodd'
                                   d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z'
-                                  fill='currentColor' fill-rule='evenodd' />
+                                  fill='currentColor' fillRule='evenodd' />
                           </svg>
                         <div>Loading ...</div>
                     </div>
                   </div>
               </div>
-
-            ): null}
+            )}
           <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
               {loading ? (
-                <div class="flex items-center justify-center w-full h-full">
-                	<div class="flex justify-center items-center space-x-1 text-sm text-gray-700">
-                        <svg fill='none' class="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
-                            <path clip-rule='evenodd'
+                <div className="flex items-center justify-center w-full h-full">
+                	<div className="flex justify-center items-center space-x-1 text-sm text-gray-700">
+                        <svg fill='none' className="w-6 h-6 animate-spin" viewBox="0 0 32 32" xmlns='http://www.w3.org/2000/svg'>
+                            <path clipRule='evenodd'
                                 d='M15.165 8.53a.5.5 0 01-.404.58A7 7 0 1023 16a.5.5 0 011 0 8 8 0 11-9.416-7.874.5.5 0 01.58.404z'
-                                fill='currentColor' fill-rule='evenodd' />
+                                fill='currentColor' fillRule='evenodd' />
                         </svg>
                 		<div>Loading ...</div>
                 	</div>
@@ -140,7 +138,7 @@ function App() {
                         <div className="text-center text-sm text-black font-bold mb-2">{restaurant.address}</div>
                       </div>
                       <button disabled={disabled} onClick={() => handleClick(restaurant.website)} className="bg-green-950 text-white font-bold py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none">
-                        See More
+                        Menu
                       </button>
                       </div>
                     ))}
