@@ -146,6 +146,34 @@ function App() {
               )}
           </section>
         </div>
+        <footer className="bg-yellow-600">
+            <div className="container mx-auto px-6 text-white font-bold">
+                <div className="w-full flex flex-col md:flex-row py-6">
+                    <div className="flex-1 text-sm">
+                        <ul className="list-reset">
+                            <p className="mt-2 inline-block mr-2 md:block md:mr-0">
+                                VO - Vegan/Vegetarian Options
+                            </p>
+                            <p className="mt-2 inline-block mr-2 md:block md:mr-0">
+                                GF - Gluten Free
+                            </p>
+                            <p className="mt-2 inline-block mr-2 md:block md:mr-0">
+                                VEG - Vegetarian
+                            </p>
+                        </ul>
+                    </div>
+                </div>
+                <div class="text-center text-xs">
+                    <div class="mt-2">
+                      <p>Privacy Policy</p>
+                    </div>
+                    <div>
+                        <span>&copy; </span>
+                        <span>Kowaaluh</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
     </div>
   );
 }
