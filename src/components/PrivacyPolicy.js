@@ -14,7 +14,7 @@ function PrivacyPolicy() {
                             Privacy Policy
                             </h4>
                             <p class="block mb-8 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
-                                Welcome to pairedplate.com. This Privacy Policy explains how we handle any personal data we may collect from you when you use our website.
+                                Welcome to pairedplate.com. This privacy policy explains how we handle any personal data we may collect from you when you use our website.
                             </p>
                             <p class="font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
                                 Information We Do Not Collect
@@ -32,7 +32,7 @@ function PrivacyPolicy() {
                                Changes to the Privacy Policy
                             </p>
                             <p class="block mb-8 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
-                                We may update this privacy policy from time to time. Any changes will be posted on this page with an updated effective date. Please review this policy periodically to stay informed of any changes.
+                                We may update this privacy policy from time to time. Any changes will be posted on this page. Please review this policy periodically to stay informed of any changes.
                             </p>
                             <div class="flex justify-end ">
                                 <Link to="/">
