@@ -77,17 +77,35 @@ function Main() {
             />
         </header>
         <main className="flex-1 overflow-hidden p-0">
-            <div className="m-4 relative flex min-h-screen flex-col items-center justify-center overflow-hidden p-8 sm:p-8 md:p-12 m-2 sm:m-4 md:m-6 lg:m-8">
-              <div className="w-full max-w-4xl rounded-md border-2 border-gray-200 bg-white p-14" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-                <div className="flex flex-col items-center ">
-                  <span className="rounded-lg bg-yellow-600 py-px px-2 text-sm text-white text-center">New restaurants added weekly</span>
-                  <h3 className="mt-2 max-w-2xl text-center text-2xl font-bold leading-tight sm:text-3xl md:text-4xl md:leading-tight">Want to find tasty food that meets your dietary needs?</h3>
-                  <form action="" className="mx-auto mt-4 flex w-full max-w-md flex-col gap-3 sm:flex-row sm:gap-0">
-                    <input type="search" name="search" onChange={inputChange} className="grow rounded border-2 border-green-950 py-3 px-3 focus:border-green-950 focus:outline-none sm:rounded-l-md sm:rounded-r-none sm:border-r-0" placeholder="Enter State" />
-                    <button onClick={() => findFood()} type="button" className="rounded bg-green-950 px-5 py-4 font-bold text-white sm:rounded-l-none sm:rounded-r-md">Find Food</button>
-                  </form>
+            <div class="m-4 flex justify-center items-center px-4 sm:px-8 lg:px-16">
+                <div class="container max-w-4xl bg-yellow-600 rounded-lg p-6 sm:p-10 md:p-14 rounded-md border-2 border-gray-200" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                    <form>
+                        <div class="flex justify-center items-center">
+                          <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-sm sm:text-base md:text-sm lg:text-lg xl:text-xl">
+                            New restaurants added weekly
+                          </span>
+                        </div>
+                        <h1 className="m-4 text-center font-bold text-black text-3xl">Get paired with tasty foods that work for you</h1>
+                        <div class="flex items-center bg-white rounded-lg overflow-hidden">
+                            <input
+                                class="flex-grow text-base text-gray-400 outline-none px-4 py-2 focus:text-black"
+                                type="search"
+                                name="search"
+                                onChange={inputChange}
+                                placeholder="Enter State"
+                            />
+                            <button
+                                onClick={() => findFood()}
+                                className="bg-green-950 font-bold text-white text-base rounded-r-lg px-4 py-2"
+                                type="button"
+                            >
+                                Find Food
+                            </button>
+                        </div>
+                    </form>
                 </div>
-              </div>
+            </div>
+            <div className="m-4 relative flex min-h-screen flex-col items-center justify-center overflow-hidden p-8 sm:p-8 md:p-12 m-2 sm:m-4 md:m-6 lg:m-8">
               <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
                   {loading ? (
                     <div className="flex items-center justify-center w-full h-full">
