@@ -86,7 +86,7 @@ function Main() {
                           </span>
                         </div>
                         <h1 className="m-4 text-center font-bold text-3xl text-black">Get paired with foods that you can enjoy</h1>
-                        <div class="flex items-center bg-white rounded-lg overflow-hidden sm:text-sm md:text-md lg:text-lg xl:text-xl">
+                        <div class="flex items-center bg-white rounded-lg overflow-hidden">
                             <input
                                 class="flex-grow text-gray-400 outline-none px-4 py-2 focus:text-black"
                                 type="search"
