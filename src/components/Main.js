@@ -81,7 +81,7 @@ function Main() {
                 <div class="container max-w-4xl bg-yellow-600 rounded-lg p-6 sm:p-10 md:p-14 rounded-md border-2 border-gray-200" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                     <form>
                         <div class="flex justify-center items-center">
-                          <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-sm sm:text-xs md:text-sm lg:text-md xl:text-lg">
+                          <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-xxs sm:text-xs md:text-sm lg:text-md xl:text-lg">
                             New restaurants added weekly
                           </span>
                         </div>
