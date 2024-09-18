@@ -77,11 +77,11 @@ function Main() {
             />
         </header>
         <main className="flex-1 overflow-hidden p-0">
-            <div class="m-10 flex justify-center items-center px-4 sm:px-8 lg:px-16">
-                <div class="container max-w-4xl bg-yellow-600 rounded-lg p-6 sm:p-10 md:p-14 rounded-md border-2 border-gray-200" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <div class="m-10 flex justify-center items-center">
+                <div class="container max-w-4xl bg-yellow-600 rounded-lg p-6 rounded-md border-2 border-gray-200" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                     <form>
                         <div class="flex justify-center items-center">
-                          <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-xxs sm:text-xs md:text-sm lg:text-md xl:text-lg">
+                          <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg">
                             New restaurants added weekly
                           </span>
                         </div>
