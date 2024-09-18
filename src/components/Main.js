@@ -81,14 +81,14 @@ function Main() {
                 <div class="container max-w-4xl bg-yellow-600 rounded-lg p-6 sm:p-10 md:p-14 rounded-md border-2 border-gray-200" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                     <form>
                         <div class="flex justify-center items-center">
-                          <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg">
+                          <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-sm sm:text-xs md:text-sm lg:text-md xl:text-lg">
                             New restaurants added weekly
                           </span>
                         </div>
-                        <h1 className="m-4 text-center font-bold text-black text-3xl">Get paired with tasty foods that work for you</h1>
-                        <div class="flex items-center bg-white rounded-lg overflow-hidden">
+                        <h1 className="m-4 text-center font-bold text-3xl text-black">Get paired with foods that you can enjoy</h1>
+                        <div class="flex items-center bg-white rounded-lg overflow-hidden sm:text-sm md:text-md lg:text-lg xl:text-xl">
                             <input
-                                class="flex-grow sm:text-sm md:text-md lg:text-lg xl:text-xl text-gray-400 outline-none px-4 py-2 focus:text-black"
+                                class="flex-grow text-gray-400 outline-none px-4 py-2 focus:text-black"
                                 type="search"
                                 name="search"
                                 onChange={inputChange}
@@ -96,7 +96,7 @@ function Main() {
                             />
                             <button
                                 onClick={() => findFood()}
-                                className="bg-green-950 font-bold text-white sm:text-sm md:text-md lg:text-lg xl:text-xl rounded-r-lg px-4 py-2"
+                                className="bg-green-950 font-bold text-white rounded-r-lg px-4 py-2"
                                 type="button"
                             >
                                 Find Food
@@ -123,7 +123,7 @@ function Main() {
                         {restaurants.map((restaurant) => (
                           <div key={restaurant.id} className="w-full border-2 border-gray-200 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
                           <div className="rounded-lg bg-yellow-600 py-px px-2 text-sm text-white mb-2">{restaurant.category}</div>
-                          <h2 className="text-center font-black text-center text-3xl text-black mb-2">
+                          <h2 className="text-center font-bold text-3xl text-black mb-2">
                               {restaurant.name}
                           </h2>
                           <div>
