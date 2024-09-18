@@ -78,7 +78,7 @@ function Main() {
         </header>
         <main className="flex-1 overflow-hidden p-0">
             <div class="m-10 flex justify-center items-center">
-                <div class="container max-w-4xl bg-yellow-600 rounded-lg p-6 rounded-md border-2 border-gray-200" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+                <div class="container max-w-xl bg-yellow-600 rounded-lg p-6 rounded-md border-2 border-gray-200" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                     <form>
                         <div class="flex justify-center items-center">
                           <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg">
@@ -96,7 +96,7 @@ function Main() {
                             />
                             <button
                                 onClick={() => findFood()}
-                                className="bg-green-950 font-bold text-white rounded-r-lg px-2 py-1 break-words sm:px-4 sm:py-2 md:px-4 md:py-2 lg:px-4 lg:py-2 xl:px-4 xl:py-2"
+                                className="bg-green-950 font-bold text-white rounded-r-lg break-words px-4 py-2"
                                 type="button"
                             >
                                 Find Food
