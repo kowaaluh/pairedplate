@@ -129,7 +129,7 @@ function Main() {
                           <div>
                             <div className="text-center text-sm text-black font-bold mb-2">{restaurant.address}</div>
                           </div>
-                          <button onClick={() => goToSite(restaurant.website)} className="bg-green-950 text-white font-bold py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none">
+                          <button onClick={() => goToSite(restaurant.website)} className="flex-grow-0 flex-shrink-0 bg-green-950 text-white font-bold py-2 px-4 rounded hover:bg-yellow-600 focus:outline-none">
                             Website
                           </button>
                           </div>
@@ -146,7 +146,7 @@ function Main() {
                         Symbols
                     </div>
                     <span class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                        VO - Vegan/Vegetarian Options
+                        VO - Vegan and Vegetarian Options
                     </span>
                     <span class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
                         VEG - Vegetarian
