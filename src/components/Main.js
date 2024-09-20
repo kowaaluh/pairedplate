@@ -95,7 +95,7 @@ function Main() {
                                 />
                                 <button
                                     onClick={() => findFood()}
-                                    className="bg-green-950 text-white rounded-r-lg p-2"
+                                    className="bg-green-950 text-white rounded-r p-2"
                                     type="button"
                                 >
                                     Search
