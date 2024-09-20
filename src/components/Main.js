@@ -80,28 +80,29 @@ function Main() {
             <div class="m-10 flex justify-center items-center">
                 <div class="container max-w-full sm:max-w-4xl md:max-w-4xl lg:max-w-4xl xl:max-w-4xl bg-yellow-600 rounded-lg p-6 rounded-md border-2 border-gray-200" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                     <form>
-                        <div class="flex justify-center items-center">
+                        <div className="flex justify-center items-center">
                           <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg">
                             New restaurants added weekly
                           </span>
                         </div>
+
                         <h1 className="m-4 text-center font-bold text-3xl text-black">Get paired with foods that you can enjoy</h1>
-                        <div class="flex items-center bg-white rounded-lg overflow-hidden">
-                            <input
-                                class="flex-grow text-gray-400 outline-none px-4 py-2 focus:text-black"
-                                type="search"
-                                name="search"
-                                onChange={inputChange}
-                                placeholder="Enter State"
-                            />
-                            <button
-                                onClick={() => findFood()}
-                                className="bg-green-950 font-bold text-white rounded-r-lg break-words px-4 py-2 "
-                                type="button"
-                            >
-                                Find Food
-                            </button>
-                        </div>
+                            <div className="flex justify-center items-center">
+                                <input
+                                    className=" text-gray-400 outline-none px-4 py-2 focus:text-black"
+                                    type="search"
+                                    name="search"
+                                    onChange={inputChange}
+                                    placeholder="Enter State"
+                                />
+                                <button
+                                    onClick={() => findFood()}
+                                    className="bg-green-950 font-bold text-white rounded-r-lg break-words px-4 py-2"
+                                    type="button"
+                                >
+                                    Find Food
+                                </button>
+                            </div>
                     </form>
                 </div>
             </div>
