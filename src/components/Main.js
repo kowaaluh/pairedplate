@@ -85,9 +85,9 @@ function Main() {
                           </span>
                         </div>
                         <h1 className="m-4 text-center font-bold text-3xl text-black">Get paired with foods that you can enjoy</h1>
-                            <div className="flex justify-center items-center flex-shrink-0">
+                            <div className="flex justify-center items-center">
                                 <input
-                                    className="text-gray-400 outline-none px-4 py-2 focus:text-black"
+                                    className="text-gray-400 outline-none p-2 focus:text-black"
                                     type="search"
                                     name="search"
                                     onChange={inputChange}
@@ -95,10 +95,10 @@ function Main() {
                                 />
                                 <button
                                     onClick={() => findFood()}
-                                    className="bg-green-950 font-bold text-white rounded-r-lg break-words px-4 py-2"
+                                    className="bg-green-950 text-white rounded-r-lg p-2"
                                     type="button"
                                 >
-                                    Find Food
+                                    Search
                                 </button>
                             </div>
                     </form>
