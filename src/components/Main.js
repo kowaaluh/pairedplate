@@ -87,7 +87,7 @@ function Main() {
                         <h1 className="m-4 text-center font-bold text-3xl text-black">Get paired with foods that you can enjoy</h1>
                             <div className="bg-white rounded flex justify-center items-center">
                                 <input
-                                    className="rounded text-gray-400 outline-none p-2 focus:text-black w-full"
+                                    className="bg-white rounded text-gray-400 outline-none p-2 focus:text-black w-full"
                                     type="search"
                                     name="search"
                                     onChange={inputChange}
