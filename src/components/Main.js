@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import logo from '../assets/logo.png';
-import background from '../assets/background.png';
 import {Amplify} from 'aws-amplify';
 import awsExports from '../aws-exports';
 import { listRestaurants } from '../graphql/queries';
@@ -77,19 +76,18 @@ function Main() {
             />
         </header>
         <main className="flex-1 overflow-hidden p-0">
-            <div class="m-10 flex justify-center items-center">
-                <div class="container max-w-full sm:max-w-4xl md:max-w-4xl lg:max-w-4xl xl:max-w-4xl bg-yellow-600 rounded-lg p-6 rounded-md border-2 border-gray-200" style={{ background: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <div class="bg-orange-100 flex justify-center items-center">
+                <div class="container max-w-full sm:max-w-4xl md:max-w-4xl lg:max-w-4xl xl:max-w-4xl p-6">
                     <form>
                         <div className="flex justify-center items-center">
-                          <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg">
+                          <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-xs sm:text-xs md:text-sm lg:text-sm xl:text-sm">
                             New restaurants added weekly
                           </span>
                         </div>
-
                         <h1 className="m-4 text-center font-bold text-3xl text-black">Get paired with foods that you can enjoy</h1>
-                            <div className="flex justify-center items-center">
+                            <div className="flex justify-center items-center flex-shrink-0">
                                 <input
-                                    className=" text-gray-400 outline-none px-4 py-2 focus:text-black"
+                                    className="text-gray-400 outline-none px-4 py-2 focus:text-black"
                                     type="search"
                                     name="search"
                                     onChange={inputChange}
