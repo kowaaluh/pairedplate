@@ -1,37 +1,53 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {v4 as uuid} from 'uuid';
 import { signUp } from 'aws-amplify/auth';
 
 function SignUp() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [emailError, setEmailError] = useState('');
   const [error, setError] = useState('');
+
+    function isValidEmail() {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailRegex.test(email);
+    }
 
     const handleSignUp = async (event) => {
      event.preventDefault();
-         const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
-         if (!passwordRegex.test(password)) {
-          setError('Password must be at least 8 characters long, contain a number, and a special character.');
-           return;
-         }
-         setError('');
+     setPasswordError('');
+     setEmailError('');
+     setError('');
+
+     if (isValidEmail(email)!==true) {
+        setEmailError('Please enter a valid email.');
+        return;
+     }
+     const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
+     if (!passwordRegex.test(password)) {
+        setPasswordError('Password must be at least 8 characters long, contain a number, and a special character.');
+        return;
+     }
       try {
-        const customEmail = email.toLowerCase();
-        const response = await signUp({
-          username: customEmail,
+        setEmail(email.toLowerCase());
+        await signUp({
+          username: email,
           password,
           options: {
             userAttributes: {
-              email: customEmail,
+              email: email,
             },
           },
         });
          navigate('/confirmation');
       } catch (error) {
-        console.error("Error during sign-up:", error);
-        throw new Error("Sign-up failed, please try again later.");
+        if (error.message === "User already exists") {
+          setError("You already have an account, please log in.");
+        } else {
+          setError("Sign up failed, please try again later.");
+        }
       }
     }
 
@@ -46,9 +62,11 @@ function SignUp() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form id="signupForm" className="space-y-6">
             <div>
+              {error && <p className="mt-4 text-yellow-600 text-sm">{error}</p>}
               <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                 Email Address
               </label>
+              {emailError && <p className="mt-4 text-yellow-600 text-sm">{emailError}</p>}
               <div className="mt-2">
                 <input
                   id="email"
@@ -67,7 +85,7 @@ function SignUp() {
                   Password
                 </label>
               </div>
-              {error && <p className="mt-4 text-yellow-600 text-sm">{error}</p>}
+              {passwordError && <p className="mt-4 text-yellow-600 text-sm">{passwordError}</p>}
               <div className="mt-2">
                 <input
                   id="password"

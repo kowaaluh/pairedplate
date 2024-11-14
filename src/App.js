@@ -10,6 +10,7 @@ import Login from './components/Login';
 import UserProfile from './components/UserProfile';
 import Details from './components/Details';
 import Confirmation from './components/Confirmation';
+import Forgot from './components/Forgot';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 
@@ -34,6 +35,11 @@ function updateAuthStatus(authStatus) {
                 <Route path="/privacy"
                     element={
                       <PrivacyPolicy />
+                    }
+                />
+                <Route path="/forgot"
+                    element={
+                      <Forgot />
                     }
                 />
                 <Route path="/signup"

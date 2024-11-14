@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {v4 as uuid} from 'uuid';
 import { confirmSignUp } from 'aws-amplify/auth';
@@ -9,27 +9,42 @@ function Confirmation(props) {
     const [confirmationCode, setConfirmationCode] = useState('');
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
+    const [emailError, setEmailError] = useState('');
+    const [error, setError] = useState('');
+
+    function isValidEmail() {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return emailRegex.test(email);
+    }
 
     const handleConfirmSignUp = async (event) => {
          event.preventDefault();
+         setEmailError('');
+         setError('');
+
+         if (isValidEmail(email)!==true) {
+            setEmailError('Please enter a valid email.');
+            return;
+         }
           try {
-            const customEmail = email.toLowerCase();
+            setEmail(email.toLowerCase());
             const response = await confirmSignUp({
-              username: customEmail,
+              username: email,
               confirmationCode
             });
              console.log(response);
              addNewUser();
 
           } catch (error) {
-            console.error("Error during sign-up:", error);
-            throw new Error("Sign-up failed, please try again later.");
+              if (error.message === "Username/client id combination not found.") {
+                setError("You do not have an account, please sign up.");
+              } else {
+                setError("Confirmation failed, please try again later.");
+              }
           }
     }
 
     const addNewUser = async () => {
-        console.log("present");
-
         const newUser = {
             id: uuid(),
             email: email
@@ -60,9 +75,11 @@ function Confirmation(props) {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form id="signupForm" className="space-y-6">
             <div>
+                {error && <p className="mt-4 text-yellow-600 text-sm">{error}</p>}
                 <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                   Email Address
                 </label>
+                {emailError && <p className="mt-4 text-yellow-600 text-sm">{emailError}</p>}
                 <div className="mt-2">
                   <input
                     id="email"
@@ -76,7 +93,7 @@ function Confirmation(props) {
                 </div>
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
+              <label htmlFor="text" className="block text-sm/6 font-medium text-gray-900">
                 Confirmation Code
               </label>
               <div className="mt-2">
