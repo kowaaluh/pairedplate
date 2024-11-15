@@ -57,9 +57,8 @@ export const getUser = /* GraphQL */ `
   query GetUser($id: ID!) {
     getUser(id: $id) {
       id
-      name
+      username
       email
-      profilePic
       reviews {
         nextToken
         __typename
@@ -80,9 +79,8 @@ export const listUsers = /* GraphQL */ `
     listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        username
         email
-        profilePic
         createdAt
         updatedAt
         owner

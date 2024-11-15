@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {v4 as uuid} from 'uuid';
 import { confirmSignUp } from 'aws-amplify/auth';
 import { createUser } from '../graphql/mutations';
 import { client } from "../graphql/client";
+import { getCurrentUser } from 'aws-amplify/auth';
 
 function Confirmation(props) {
+    const navigate = useNavigate();
     const [confirmationCode, setConfirmationCode] = useState('');
     const [email, setEmail] = useState('');
-    const navigate = useNavigate();
     const [emailError, setEmailError] = useState('');
     const [error, setError] = useState('');
 
@@ -32,9 +32,7 @@ function Confirmation(props) {
               username: email,
               confirmationCode
             });
-             console.log(response);
              addNewUser();
-
           } catch (error) {
               if (error.message === "Username/client id combination not found.") {
                 setError("You do not have an account, please sign up.");
@@ -45,23 +43,18 @@ function Confirmation(props) {
     }
 
     const addNewUser = async () => {
-        const newUser = {
-            id: uuid(),
-            email: email
-        };
           try {
+              const { userId } = await getCurrentUser();
+              const userData = { id: userId, username: "", email: email };
               const response = await client.graphql({
                  query: createUser,
-                 variables: {
-                   id: newUser.id,
-                   email: newUser.email,
-                 },
+                 variables: { input: userData }
               });
+              props.updateAuthStatus(true)
+              navigate(`/user/${id}`);
           } catch (error) {
-            console.error('Error fetching data:', error);
+            setError("Confirmation failed, please try again later.");
           }
-        navigate('/user/${newUser.id}');
-        props.updateAuthStatus(true)
     }
 
   return (

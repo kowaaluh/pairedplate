@@ -86,9 +86,8 @@ export const onCreateUser = /* GraphQL */ `
   ) {
     onCreateUser(filter: $filter, owner: $owner) {
       id
-      name
+      username
       email
-      profilePic
       reviews {
         nextToken
         __typename
@@ -107,9 +106,8 @@ export const onUpdateUser = /* GraphQL */ `
   ) {
     onUpdateUser(filter: $filter, owner: $owner) {
       id
-      name
+      username
       email
-      profilePic
       reviews {
         nextToken
         __typename
@@ -128,9 +126,8 @@ export const onDeleteUser = /* GraphQL */ `
   ) {
     onDeleteUser(filter: $filter, owner: $owner) {
       id
-      name
+      username
       email
-      profilePic
       reviews {
         nextToken
         __typename

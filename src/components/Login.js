@@ -3,12 +3,13 @@ import { signIn } from 'aws-amplify/auth';
 import { useNavigate, Link } from 'react-router-dom';
 import { getUser } from '../graphql/queries';
 import { client } from "../graphql/client";
+import { getCurrentUser } from 'aws-amplify/auth';
+import { signOut } from "aws-amplify/auth";
 
 function Login(props) {
    const navigate = useNavigate();
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
-   const [user, setUser] = useState('');
    const [passwordError, setPasswordError] = useState('');
    const [emailError, setEmailError] = useState('');
    const [error, setError] = useState('');
@@ -34,34 +35,24 @@ function Login(props) {
       return;
      }
 
-
       try {
         setEmail(email.toLowerCase());
         const response = await signIn ({
           username: email,
           password,
         });
-      } catch (error) {
-        setError("Log in failed, please try again later.");
-        throw new Error("Sign-up failed, please try again later.", error);
-      }
-      findUser();
-   }
-
-   const findUser = async () => {
-     try {
-      const response = await client.graphql({
-        query: getUser,
-        variables: { email: email }
-      });
-      console.log(response);
-        setUser(response.data.getUser);
+        const { userId } = await getCurrentUser();
         props.updateAuthStatus(true)
-        navigate('/user/${user.id}');
+        navigate(`/user/${userId}`);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        if (error.message === "There is already a signed in user."){
+            await signOut({ global: true });
+            setError("Something went wrong, please sign in again.");
+        } else {
+            setError("Log in failed.");
+        }
       }
-  };
+   }
 
   return (
     <>

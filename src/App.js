@@ -1,5 +1,4 @@
 import { Amplify } from 'aws-amplify';
-import { Authenticator, View, Image, useTheme } from '@aws-amplify/ui-react';
 import awsExports from './aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 import Main from './components/Main';
@@ -21,6 +20,7 @@ const [isAuthenticated, setIsAuthenticated] = useState(false)
 
 function updateAuthStatus(authStatus) {
     setIsAuthenticated(authStatus)
+    console.log(authStatus);
 }
 
   return (
@@ -29,7 +29,7 @@ function updateAuthStatus(authStatus) {
               <Routes>
                 <Route path="/details/:restaurant"
                     element={
-                      <Details />
+                      <Details isAuthenticated={isAuthenticated} />
                     }
                 />
                 <Route path="/privacy"
@@ -44,23 +44,23 @@ function updateAuthStatus(authStatus) {
                 />
                 <Route path="/signup"
                     element={
-                      <SignUp updateAuthStatus={updateAuthStatus} />
+                      <SignUp />
                     }
                 />
                 <Route path="/confirmation"
                     element={
-                      <Confirmation />
+                      <Confirmation updateAuthStatus={updateAuthStatus} />
                     }
                 />
                 <Route path="/login"
                     element={
-                      <Login />
+                      <Login updateAuthStatus={updateAuthStatus} />
                     }
                 />
                 <Route
                     path="/"
                     element={
-                        <Main/>
+                        <Main isAuthenticated={isAuthenticated} />
                     }
                 />
                 <Route
@@ -71,7 +71,7 @@ function updateAuthStatus(authStatus) {
                 />
                 <Route
                     path="*"
-                    element={<Navigate to="/" element={<Main/>} replace />}
+                    element={<Navigate to="/" element={<Main isAuthenticated={isAuthenticated} />} replace />}
                 />
             </Routes>
       </div>

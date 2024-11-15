@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import banner from '../assets/banner.png';
 import {Amplify} from 'aws-amplify';
-import awsExports from '../aws-exports';
+import awsmobile from '../aws-exports';
 import { listRestaurants } from '../graphql/queries';
 import { client } from "../graphql/client";
 import { Link } from 'react-router-dom';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 
-Amplify.configure(awsExports);
+Amplify.configure(awsmobile);
 
 function Main() {
   const [restaurants, setRestaurants] = useState([]);
@@ -68,13 +68,13 @@ function Main() {
   return (
     <div className="bg-gray-50 flex flex-col min-h-screen">
         <main className="flex-1 overflow-hidden p-0">
-            <div class="bg-orange-100 flex justify-center items-center">
+            <div className="bg-orange-100 flex justify-center items-center">
                 <img
                   src={banner}
                   alt="Paired Plate"
                   className="w-full h-full object-fill"
                 />
-                <div class="absolute container max-w-full sm:max-w-4xl md:max-w-4xl lg:max-w-4xl xl:max-w-4xl p-6">
+                <div className="absolute container max-w-full sm:max-w-4xl md:max-w-4xl lg:max-w-4xl xl:max-w-4xl p-6">
                     <form>
                         <div className="flex justify-center items-center">
                           <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-xs sm:text-xs md:text-sm lg:text-sm xl:text-sm">
@@ -123,55 +123,55 @@ function Main() {
               </section>
             </div>
         </main>
-        <footer class="bg-green-950 pt-10 sm:mt-10 pt-10">
-            <div class="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-left">
-                <div class="p-5 w-1/2 sm:w-4/12 md:w-3/12">
-                    <div class="text-xs uppercase text-gray-400 font-medium mb-6">
+        <footer className="bg-green-950 pt-10 sm:mt-10 pt-10">
+            <div className="max-w-6xl m-auto text-gray-800 flex flex-wrap justify-left">
+                <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+                    <div className="text-xs uppercase text-gray-400 font-medium mb-6">
                         Acronyms
                     </div>
-                    <span class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                    <span className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
                         V - Vegan
                     </span>
-                    <span class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                    <span className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
                         VEG - Vegetarian
                     </span>
-                    <span class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                    <span className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
                         VO - Vegan and Vegetarian Options
                     </span>
-                    <span class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                    <span className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
                         GF - Gluten Free
                     </span>
-                    <span class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                    <span className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
                         GFO - Gluten Free Options
                     </span>
                 </div>
-                <div class="p-5 w-1/2 sm:w-4/12 md:w-3/12">
-                    <div class="text-xs uppercase text-gray-400 font-medium mb-6">
+                <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+                    <div className="text-xs uppercase text-gray-400 font-medium mb-6">
                         Socials
                     </div>
-                    <a href="https://www.tiktok.com/@pairedplate" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                    <a href="https://www.tiktok.com/@pairedplate" className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
                         TikTok
                     </a>
-                    <a href="https://www.instagram.com/pairedplateapp/" class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                    <a href="https://www.instagram.com/pairedplateapp/" className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
                         Instagram
                     </a>
                 </div>
-                <div class="p-5 w-1/2 sm:w-4/12 md:w-3/12">
-                    <div class="text-xs uppercase text-gray-400 font-medium mb-6">
+                <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+                    <div className="text-xs uppercase text-gray-400 font-medium mb-6">
                         Legal
                     </div>
                     <Link to="/privacy">
-                        <span class="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
+                        <span className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
                             Privacy
                         </span>
                     </Link>
                 </div>
             </div>
-            <div class="pt-2">
-                <div class="flex pb-5 px-3 m-auto pt-5
+            <div className="pt-2">
+                <div className="flex pb-5 px-3 m-auto pt-5
                     border-t border-gray-500 text-gray-400 text-xs
                     flex-col md:flex-row max-w-6xl">
-                    <div class="mt-2">
+                    <div className="mt-2">
                         © Copyright 2024 pairedplate.com. All Rights Reserved.
                     </div>
                 </div>

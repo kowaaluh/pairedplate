@@ -89,9 +89,8 @@ export const createUser = /* GraphQL */ `
   ) {
     createUser(input: $input, condition: $condition) {
       id
-      name
+      username
       email
-      profilePic
       reviews {
         nextToken
         __typename
@@ -110,9 +109,8 @@ export const updateUser = /* GraphQL */ `
   ) {
     updateUser(input: $input, condition: $condition) {
       id
-      name
+      username
       email
-      profilePic
       reviews {
         nextToken
         __typename
@@ -131,9 +129,8 @@ export const deleteUser = /* GraphQL */ `
   ) {
     deleteUser(input: $input, condition: $condition) {
       id
-      name
+      username
       email
-      profilePic
       reviews {
         nextToken
         __typename

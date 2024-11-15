@@ -22,7 +22,9 @@
           ],
           "defaultAuthentication": {
             "apiKeyConfig": {
-              "apiKeyExpirationDays": 7
+              "apiKeyExpirationDate": "2024-12-15T00:38:04.854Z",
+              "apiKeyExpirationDays": 30,
+              "description": "pairedplate"
             },
             "authenticationType": "API_KEY"
           }
