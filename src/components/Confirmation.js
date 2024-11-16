@@ -11,6 +11,7 @@ function Confirmation(props) {
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
     const [error, setError] = useState('');
+    const [id, setId] = useState('');
 
     function isValidEmail() {
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -46,6 +47,8 @@ function Confirmation(props) {
           try {
               const { userId } = await getCurrentUser();
               const userData = { id: userId, username: "", email: email };
+              setId(userId);
+
               const response = await client.graphql({
                  query: createUser,
                  variables: { input: userData }

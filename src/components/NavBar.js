@@ -50,7 +50,7 @@ const NavBar = (props) => {
       ) }
       {
         props.isAuthenticated !== false && (
-            <div className="flex absolute right-0 space-x-4">
+            <div className="flex absolute right-5 space-x-4">
               <button
                 onClick={handleUserPage}
                 className="text-xs font-bold bg-green-950 text-white px-4 py-2.5 rounded-full hover:bg-green-900"

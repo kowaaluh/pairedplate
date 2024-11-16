@@ -37,7 +37,7 @@ function Main() {
 
       const response = await client.graphql({
         query: listRestaurants,
-        variables: variables
+        variables: variables,
       });
 
       setRestaurants(response.data.listRestaurants.items);
