@@ -88,7 +88,7 @@ function Main() {
                                     type="search"
                                     name="search"
                                     onChange={inputChange}
-                                    placeholder="Enter State"
+                                    placeholder="Enter State, City, or Zipcode"
                                 />
                                 <button
                                     onClick={() => findFood()}
@@ -112,11 +112,13 @@ function Main() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
                         {restaurants.map((restaurant) => (
                           <div key={restaurant.id} className="w-full border-2 border-gray-200 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
-                          <div className="rounded-lg bg-yellow-600 py-px px-2 text-sm text-white mb-2">{restaurant.category}</div>
-                          <span className="text-center font-bold text-2xl text-black mb-2">
-                              {restaurant.name}
-                          </span>
-                          </div>
+                              <div className="rounded-lg bg-yellow-600 py-px px-2 text-sm text-white mb-2">{restaurant.category}</div>
+                                  <Link to={`/details/${restaurant.id}`}>
+                                      <span className="text-center font-bold text-2xl text-black mb-2">
+                                          {restaurant.name}
+                                      </span>
+                                  </Link>
+                              </div>
                         ))}
                     </div>
                   )}

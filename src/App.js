@@ -27,7 +27,7 @@ function updateAuthStatus(authStatus) {
       <div>
           <NavBar isAuthenticated={isAuthenticated} updateAuthStatus={updateAuthStatus}/>
               <Routes>
-                <Route path="/details/:restaurant"
+                <Route path="/details/:restaurantId"
                     element={
                       <Details isAuthenticated={isAuthenticated} />
                     }
@@ -64,7 +64,7 @@ function updateAuthStatus(authStatus) {
                     }
                 />
                 <Route
-                    path="/user/:user"
+                    path="/user/:userId"
                     element={
                         <UserProfile isAuthenticated={isAuthenticated}/>
                     }
