@@ -15,6 +15,7 @@ export const getRestaurant = /* GraphQL */ `
       rating
       items
       profilePic
+      reviewed
       reviews {
         nextToken
         __typename
@@ -44,46 +45,9 @@ export const listRestaurants = /* GraphQL */ `
         rating
         items
         profilePic
+        reviewed
         createdAt
         updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const getUser = /* GraphQL */ `
-  query GetUser($id: ID!) {
-    getUser(id: $id) {
-      id
-      username
-      email
-      reviews {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const listUsers = /* GraphQL */ `
-  query ListUsers(
-    $filter: ModelUserFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
-      items {
-        id
-        username
-        email
-        createdAt
-        updatedAt
-        owner
         __typename
       }
       nextToken
@@ -95,7 +59,8 @@ export const getReview = /* GraphQL */ `
   query GetReview($id: ID!) {
     getReview(id: $id) {
       id
-      poster
+      restaurantID
+      username
       rating
       message
       photos
@@ -103,7 +68,6 @@ export const getReview = /* GraphQL */ `
       createdAt
       updatedAt
       restaurantReviewsId
-      userReviewsId
       owner
       __typename
     }
@@ -118,7 +82,8 @@ export const listReviews = /* GraphQL */ `
     listReviews(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        poster
+        restaurantID
+        username
         rating
         message
         photos
@@ -126,7 +91,6 @@ export const listReviews = /* GraphQL */ `
         createdAt
         updatedAt
         restaurantReviewsId
-        userReviewsId
         owner
         __typename
       }

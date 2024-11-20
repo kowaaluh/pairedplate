@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import banner from '../assets/banner.png';
-import {Amplify} from 'aws-amplify';
 import awsmobile from '../aws-exports';
 import { listRestaurants } from '../graphql/queries';
 import { client } from "../graphql/client";
 import { Link } from 'react-router-dom';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
-
-Amplify.configure(awsmobile);
+import { baseUrl } from '../config/constants.js';
 
 function Main() {
   const [restaurants, setRestaurants] = useState([]);
@@ -17,51 +15,88 @@ function Main() {
 
   const inputChange = (event) => {
     const str = event.target.value;
-    if (str.length !== 0) {
-        const upStr = str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-        setSearch(upStr);
+    setSearch(str);
+  };
+
+    const findByZipcode = async () => {
+       try {
+       setLoading(true);
+
+       const variables = {
+         filter: {
+           zipcode: {
+             eq: search
+           }
+         }
+       };
+
+        const response = await client.graphql({
+          query: listRestaurants,
+          variables: variables,
+        });
+
+        setRestaurants(response.data.listRestaurants.items);
+
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          setLoading(false);
+        }
+    };
+
+
+    const findByCity = async () => {
+       try {
+       setLoading(true);
+
+       const variables = {
+         filter: {
+           city: {
+             eq: search
+           }
+         }
+       };
+
+        const response = await client.graphql({
+          query: listRestaurants,
+          variables: variables,
+        });
+
+        setRestaurants(response.data.listRestaurants.items);
+
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        } finally {
+          setLoading(false);
+        }
+    };
+
+  const findFood =  () => {
+        if (search.length === 0) {
+            getRestaurants();
+        } else  if ((/^\d/.test(search))){
+            findByZipcode();
+        } else {
+            const city = search.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase());
+            setSearch(city);
+            findByCity();
+        }
+  };
+
+  const getRestaurants = async () => {
+      try {
+        const response = await client.graphql({
+          query: listRestaurants
+        });
+        setRestaurants(response.data.listRestaurants.items);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const findFood = async () => {
-     try {
-     setLoading(true);
-
-     const variables = {
-       filter: {
-         state: {
-           eq: search
-         }
-       }
-     };
-
-      const response = await client.graphql({
-        query: listRestaurants,
-        variables: variables,
-      });
-
-      setRestaurants(response.data.listRestaurants.items);
-
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-  };
-
   useEffect(() => {
-    const getRestaurants = async () => {
-        try {
-          const response = await client.graphql({
-            query: listRestaurants
-          });
-          setRestaurants(response.data.listRestaurants.items);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
     getRestaurants();
   }, []);
 
@@ -81,14 +116,14 @@ function Main() {
                             New restaurants added weekly
                           </span>
                         </div>
-                        <h1 className="m-4 text-center font-bold text-3xl text-white">Get paired with foods that you can enjoy</h1>
+                        <h1 className="m-4 text-center font-bold text-3xl text-white">Get paired with plant-based foods</h1>
                             <div className="bg-white rounded flex justify-center items-center">
                                 <input
                                     className="bg-white rounded text-gray-400 outline-none p-2 focus:text-black w-full"
                                     type="search"
                                     name="search"
                                     onChange={inputChange}
-                                    placeholder="Enter State, City, or Zipcode"
+                                    placeholder="Enter City or Zipcode"
                                 />
                                 <button
                                     onClick={() => findFood()}
@@ -110,11 +145,16 @@ function Main() {
                     </div>
                   ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
-                        {restaurants.map((restaurant) => (
-                          <div key={restaurant.id} className="w-full border-2 border-gray-200 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
+                        {restaurants?.map((restaurant) => (
+                          <div key={restaurant.id} className="w-full border-2 border-gray-200 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center"
+                          style={{ backgroundImage: `url(${baseUrl}${restaurant.profilePic})`,
+                           backgroundSize: "cover",
+                           backgroundPosition: "center",
+                           backgroundRepeat: "no-repeat",
+                           alt: "restaurant logo"}}>
                               <div className="rounded-lg bg-yellow-600 py-px px-2 text-sm text-white mb-2">{restaurant.category}</div>
                                   <Link to={`/details/${restaurant.id}`}>
-                                      <span className="text-center font-bold text-2xl text-black mb-2">
+                                      <span className="text-center text-4xl font-bold text-white mb-2 items-center">
                                           {restaurant.name}
                                       </span>
                                   </Link>
@@ -135,16 +175,7 @@ function Main() {
                         V - Vegan
                     </span>
                     <span className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                        VEG - Vegetarian
-                    </span>
-                    <span className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                        VO - Vegan and Vegetarian Options
-                    </span>
-                    <span className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                        GF - Gluten Free
-                    </span>
-                    <span className="my-3 block text-gray-300 hover:text-gray-100 text-sm font-medium duration-700">
-                        GFO - Gluten Free Options
+                        VO - Vegan Options
                     </span>
                 </div>
                 <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">

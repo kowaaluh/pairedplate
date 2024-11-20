@@ -18,6 +18,7 @@ export const createRestaurant = /* GraphQL */ `
       rating
       items
       profilePic
+      reviewed
       reviews {
         nextToken
         __typename
@@ -45,6 +46,7 @@ export const updateRestaurant = /* GraphQL */ `
       rating
       items
       profilePic
+      reviewed
       reviews {
         nextToken
         __typename
@@ -72,72 +74,13 @@ export const deleteRestaurant = /* GraphQL */ `
       rating
       items
       profilePic
+      reviewed
       reviews {
         nextToken
         __typename
       }
       createdAt
       updatedAt
-      __typename
-    }
-  }
-`;
-export const createUser = /* GraphQL */ `
-  mutation CreateUser(
-    $input: CreateUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    createUser(input: $input, condition: $condition) {
-      id
-      username
-      email
-      reviews {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const updateUser = /* GraphQL */ `
-  mutation UpdateUser(
-    $input: UpdateUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    updateUser(input: $input, condition: $condition) {
-      id
-      username
-      email
-      reviews {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const deleteUser = /* GraphQL */ `
-  mutation DeleteUser(
-    $input: DeleteUserInput!
-    $condition: ModelUserConditionInput
-  ) {
-    deleteUser(input: $input, condition: $condition) {
-      id
-      username
-      email
-      reviews {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      owner
       __typename
     }
   }
@@ -149,7 +92,8 @@ export const createReview = /* GraphQL */ `
   ) {
     createReview(input: $input, condition: $condition) {
       id
-      poster
+      restaurantID
+      username
       rating
       message
       photos
@@ -157,7 +101,6 @@ export const createReview = /* GraphQL */ `
       createdAt
       updatedAt
       restaurantReviewsId
-      userReviewsId
       owner
       __typename
     }
@@ -170,7 +113,8 @@ export const updateReview = /* GraphQL */ `
   ) {
     updateReview(input: $input, condition: $condition) {
       id
-      poster
+      restaurantID
+      username
       rating
       message
       photos
@@ -178,7 +122,6 @@ export const updateReview = /* GraphQL */ `
       createdAt
       updatedAt
       restaurantReviewsId
-      userReviewsId
       owner
       __typename
     }
@@ -191,7 +134,8 @@ export const deleteReview = /* GraphQL */ `
   ) {
     deleteReview(input: $input, condition: $condition) {
       id
-      poster
+      restaurantID
+      username
       rating
       message
       photos
@@ -199,7 +143,6 @@ export const deleteReview = /* GraphQL */ `
       createdAt
       updatedAt
       restaurantReviewsId
-      userReviewsId
       owner
       __typename
     }

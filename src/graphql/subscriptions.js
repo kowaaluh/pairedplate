@@ -17,6 +17,7 @@ export const onCreateRestaurant = /* GraphQL */ `
       rating
       items
       profilePic
+      reviewed
       reviews {
         nextToken
         __typename
@@ -43,6 +44,7 @@ export const onUpdateRestaurant = /* GraphQL */ `
       rating
       items
       profilePic
+      reviewed
       reviews {
         nextToken
         __typename
@@ -69,72 +71,13 @@ export const onDeleteRestaurant = /* GraphQL */ `
       rating
       items
       profilePic
+      reviewed
       reviews {
         nextToken
         __typename
       }
       createdAt
       updatedAt
-      __typename
-    }
-  }
-`;
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onCreateUser(filter: $filter, owner: $owner) {
-      id
-      username
-      email
-      reviews {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onUpdateUser(filter: $filter, owner: $owner) {
-      id
-      username
-      email
-      reviews {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-  }
-`;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser(
-    $filter: ModelSubscriptionUserFilterInput
-    $owner: String
-  ) {
-    onDeleteUser(filter: $filter, owner: $owner) {
-      id
-      username
-      email
-      reviews {
-        nextToken
-        __typename
-      }
-      createdAt
-      updatedAt
-      owner
       __typename
     }
   }
@@ -146,7 +89,8 @@ export const onCreateReview = /* GraphQL */ `
   ) {
     onCreateReview(filter: $filter, owner: $owner) {
       id
-      poster
+      restaurantID
+      username
       rating
       message
       photos
@@ -154,7 +98,6 @@ export const onCreateReview = /* GraphQL */ `
       createdAt
       updatedAt
       restaurantReviewsId
-      userReviewsId
       owner
       __typename
     }
@@ -167,7 +110,8 @@ export const onUpdateReview = /* GraphQL */ `
   ) {
     onUpdateReview(filter: $filter, owner: $owner) {
       id
-      poster
+      restaurantID
+      username
       rating
       message
       photos
@@ -175,7 +119,6 @@ export const onUpdateReview = /* GraphQL */ `
       createdAt
       updatedAt
       restaurantReviewsId
-      userReviewsId
       owner
       __typename
     }
@@ -188,7 +131,8 @@ export const onDeleteReview = /* GraphQL */ `
   ) {
     onDeleteReview(filter: $filter, owner: $owner) {
       id
-      poster
+      restaurantID
+      username
       rating
       message
       photos
@@ -196,7 +140,6 @@ export const onDeleteReview = /* GraphQL */ `
       createdAt
       updatedAt
       restaurantReviewsId
-      userReviewsId
       owner
       __typename
     }

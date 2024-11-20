@@ -1,5 +1,5 @@
 import { Amplify } from 'aws-amplify';
-import awsExports from './aws-exports';
+import awsmobile from './aws-exports';
 import '@aws-amplify/ui-react/styles.css';
 import Main from './components/Main';
 import SignUp from './components/SignUp';
@@ -13,14 +13,13 @@ import Forgot from './components/Forgot';
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 
-Amplify.configure(awsExports);
+Amplify.configure(awsmobile);
 
 function App() {
 const [isAuthenticated, setIsAuthenticated] = useState(false)
 
 function updateAuthStatus(authStatus) {
     setIsAuthenticated(authStatus)
-    console.log(authStatus);
 }
 
   return (
