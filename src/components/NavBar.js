@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { signOut } from 'aws-amplify/auth';
 import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -13,13 +12,13 @@ const NavBar = (props) => {
             props.updateAuthStatus(false);
             navigate('/');
             await signOut({ global: true });
-        } catch (err) { console.log(err) }
+        } catch (err) {  }
     }
     const handleUserPage = async () => {
         try {
             const { userId } = await getCurrentUser();
             navigate(`/user/${userId}`);
-        } catch (err) { console.log(err) }
+        } catch (err) {  }
     }
 
   return (

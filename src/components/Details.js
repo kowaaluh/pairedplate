@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getRestaurant } from '../graphql/queries';
+import { getRestaurant, listReviews } from '../graphql/queries';
+import { updateRestaurant } from '../graphql/mutations';
 import { client } from "../graphql/client";
 import Rating from 'react-rating-stars-component';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { createReview } from '../graphql/mutations';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { getCurrentUser } from 'aws-amplify/auth';
-import { baseUrl, size, count, starColor, isHalf, edit, bucket } from '../config/constants.js';
-import { uploadData } from 'aws-amplify/storage';
+import { size, count, starColor, isHalf, edit } from '../config/constants.js';
+import awsmobile from '../aws-exports';
+import {Amplify} from 'aws-amplify';
+
+Amplify.configure({...awsmobile, aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS"});
 
 function Details(props) {
   const [restaurant, setRestaurant] = useState([]);
   const { restaurantId } = useParams();
   const [reviews, setReviews] = useState(null);
   const [items, setItems] = useState(null);
-  const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [hideReviews, setHideReviews] = useState(true);
   const [hideItems, setHideItems] = useState(true);
@@ -28,15 +31,44 @@ function Details(props) {
   const [tempName, setTempName] = useState('');
   const [newRating, setNewRating] = useState(0);
   const editStars = true;
-  const displayHalf = false;
 
-  const handleFileChange = (event) => {
-    const uploadedFile = event.target.files[0];
-    if (uploadedFile) {
-      setFile(uploadedFile);
-      console.log("File uploaded:", uploadedFile);
+  const calculateNewRating = async(currentAverage, totalVotes, newVote) => {
+    var currentTotal = 0;
+    var newTotal = 0;
+    var newTotalVotes = 0;
+    var newAverage = 0;
+
+    if (newVote !== null || newVote !== 0 ) {
+        if (currentAverage === null) {
+            currentAverage = 0;
+        }
+        if (totalVotes === null) {
+            totalVotes = 0;
+        }
+        currentTotal = currentAverage * totalVotes;
+
+        newTotal = currentTotal + newVote;
+
+        newTotalVotes = totalVotes + 1;
+
+        newAverage = Math.round(newTotal / newTotalVotes);
+    } else {
+        newAverage = currentAverage;
     }
-  };
+
+    const restaurantData = {
+      id: restaurantId,
+      rating: newAverage,
+      total: newTotalVotes,
+      reviewed: true
+    }
+
+    await client.graphql({
+     query: updateRestaurant,
+     variables: { input: restaurantData },
+    });
+
+  }
 
   const handleCheckbox = async (event) => {
     if (event.target.checked === true) {
@@ -48,7 +80,7 @@ function Details(props) {
     }
   };
 
-    const getName =  (email) => {
+    const getName = (email) => {
         const name = email.substring(0, email.indexOf('@'));
         setUsername(name);
         setTempName(name);
@@ -78,67 +110,71 @@ function Details(props) {
        setReviewError('');
 
         try {
-          const result = await uploadData({
-            path: `${bucket}/image.png`,
-            data: file,
-          }).result;
-          console.log(result);
-
           const reviewData = {
               restaurantID: restaurantId,
+              restaurantName: restaurant.name,
               username: username,
               rating: newRating,
               message: message,
               approved: false
           }
-          const response = await client.graphql({
+          await client.graphql({
              query: createReview,
-             variables: { input: reviewData }
+             variables: { input: reviewData },
           });
-          console.log(response);
 
+          calculateNewRating(restaurant.rating, restaurant.total, newRating);
+          displayRestaurant();
+          closeForm();
 
         } catch (error) {
-            if (error.message === "Username/client id combination not found.") {
-              console.log("You do not have an account, please sign up.");
-            } else {
-              console.log("An unexpected error occurred.");
-            }
         }
   }
 
+  const displayRestaurant = async () => {
+       try {
+        setLoading(true);
+
+        const response = await client.graphql({
+          query: getRestaurant,
+          variables: { id: restaurantId },
+        });
+
+        setRestaurant(response.data.getRestaurant);
+
+        if (response.data.getRestaurant.items !== null || response.data.getRestaurant.items  === undefined) {
+            setItems(Object.values(response.data.getRestaurant.items));
+            setHideItems(false);
+        }
+
+        const variables = {
+         filter: {
+           restaurantID: {
+             eq: restaurantId
+           }
+         }
+        };
+
+        const reviewData = await client.graphql({
+          query: listReviews,
+          variables: variables,
+        });
+
+        if (reviewData.data.listReviews.items.length !== 0) {
+            setReviews(reviewData.data.listReviews.items);
+            setHideReviews(false);
+        }
+
+        } catch (error) {
+
+        } finally {
+          setLoading(false);
+        }
+  };
+
   useEffect(() => {
-      const displayRestaurant = async () => {
-           try {
-            setLoading(true);
-
-            const response = await client.graphql({
-              query: getRestaurant,
-              variables: { id: restaurantId }
-            });
-
-            setRestaurant(response.data.getRestaurant);
-
-            if (response.data.getRestaurant.items !== null || response.data.getRestaurant.items  === undefined) {
-                setItems(Object.values(response.data.getRestaurant.items));
-                setHideItems(false);
-            }
-
-            if (response.data.getRestaurant.reviewed === true) {
-                setReviews(Object.values(response.data.getRestaurant.reviews));
-                setHideReviews(true);
-                console.log("umm what");
-            }
-
-            } catch (error) {
-              console.error('Error fetching data:', error);
-            } finally {
-              setLoading(false);
-            }
-      };
       displayRestaurant();
-
-  }, [restaurantId]);
+  }, []);
 
   return (
   <>
@@ -148,7 +184,7 @@ function Details(props) {
             <h2 className="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-2xl">
               {restaurant.name}
             </h2>
-            <div className="border-2 border-gray-200 bg-yellow-600 m-4 max-w-2xl mx-auto p-6 shadow-md rounded-lg">
+            <div className="border-2 border-white bg-white m-4 max-w-3xl mx-auto p-6 shadow-md rounded-lg">
              <div className="bg-white p-4 rounded-md">
               <h2 className="mb-4 text-lg font-bold text-black">Contact Information</h2>
               <div className="flex items-center space-x-8">
@@ -195,13 +231,12 @@ function Details(props) {
             </div>
             { !hideReviews ? (
                 <div className="mb-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-7">
-                  <div className="mb-4 sm:break-inside-avoid">
-                    <blockquote className="rounded-lg bg-gray-50 p-6 shadow-sm sm:p-8">
-                        {reviews?.map((review) => (
-                          <div key={review.id} className="w-full border-2 border-gray-200 rounded-lg sahdow-lg p-12 flex flex-col justify-center items-center">
+                    {reviews?.map((review) => (
+                      <div key={review.id} className="w-full bg-white rounded-lg shadow-lg p-12 flex flex-col justify-center items-center">
                           <div className="flex items-center gap-4">
                             <div>
-                              <div className="flex justify-center gap-0.5 text-green-500">
+                              <p className="mt-0.5 text-md text-gray-900 text-center">{review.username}</p>
+                              <div className="flex justify-center gap-0.5">
                                   <Rating
                                     count={count}
                                     value={review.rating}
@@ -211,16 +246,13 @@ function Details(props) {
                                     edit={edit}
                                   />
                               </div>
-                              <p className="mt-0.5 text-lg font-medium text-gray-900">{review.poster}</p>
                             </div>
                           </div>
                           <p className="mt-4 text-gray-700">
                             {review.message}
                           </p>
-                          </div>
-                        ))}
-                    </blockquote>
-                  </div>
+                      </div>
+                    ))}
                 </div>
             ) : (
                 <div className="mb-4 mx-auto p-6 bg-gray-50 rounded-lg">
@@ -241,7 +273,7 @@ function Details(props) {
                 </div>
             )}
             { hideForm === false && (
-                <div className="border-2 border-gray-200 bg-white m-4 max-w-4xl mx-auto p-6 bg-gray-50 shadow-md rounded-lg">
+                <div className="border-2 border-gray-200 bg-white m-4 max-w-4xl mx-auto p-6 border-gray-100 shadow-lg rounded-lg">
                   <form className="space-y-6">
                     <div>
                       <XMarkIcon className="w-3 h-3 flex ml-auto" onClick={closeForm}/>
@@ -253,7 +285,7 @@ function Details(props) {
                           onChange={handleNewRating}
                           size={size}
                           activeColor={starColor}
-                          isHalf={displayHalf}
+                          isHalf={isHalf}
                           edit={editStars}
                         />
                       </div>
@@ -292,16 +324,6 @@ function Details(props) {
                       </div>
                     </div>
                     <div>
-                    {file && <p>Selected file: {file.name}</p>}
-                    <div className="mt-2 mb-4 flex items-center justify-center w-full">
-                        <label htmlFor="dropzone-file" className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-100 border-dashed rounded-lg cursor-pointer bg-gray-50">
-                            <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                                <p className="mb-2 text-sm text-gray-500"><span className="font-semibold">Click to upload</span></p>
-                                <p className="text-xs text-gray-500">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                            </div>
-                            <input id="dropzone-file" type="file" onChange={handleFileChange} className="hidden" />
-                        </label>
-                    </div>
                       <button
                         onClick={submitReview}
                         type="submit"

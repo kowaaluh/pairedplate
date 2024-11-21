@@ -13,13 +13,10 @@ export const getRestaurant = /* GraphQL */ `
       city
       zipcode
       rating
+      total
       items
       profilePic
       reviewed
-      reviews {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -43,6 +40,7 @@ export const listRestaurants = /* GraphQL */ `
         city
         zipcode
         rating
+        total
         items
         profilePic
         reviewed
@@ -60,6 +58,7 @@ export const getReview = /* GraphQL */ `
     getReview(id: $id) {
       id
       restaurantID
+      restaurantName
       username
       rating
       message
@@ -67,7 +66,6 @@ export const getReview = /* GraphQL */ `
       approved
       createdAt
       updatedAt
-      restaurantReviewsId
       owner
       __typename
     }
@@ -83,6 +81,7 @@ export const listReviews = /* GraphQL */ `
       items {
         id
         restaurantID
+        restaurantName
         username
         rating
         message
@@ -90,7 +89,6 @@ export const listReviews = /* GraphQL */ `
         approved
         createdAt
         updatedAt
-        restaurantReviewsId
         owner
         __typename
       }

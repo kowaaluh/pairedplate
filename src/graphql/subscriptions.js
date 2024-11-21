@@ -15,13 +15,10 @@ export const onCreateRestaurant = /* GraphQL */ `
       city
       zipcode
       rating
+      total
       items
       profilePic
       reviewed
-      reviews {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -42,13 +39,10 @@ export const onUpdateRestaurant = /* GraphQL */ `
       city
       zipcode
       rating
+      total
       items
       profilePic
       reviewed
-      reviews {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -69,13 +63,10 @@ export const onDeleteRestaurant = /* GraphQL */ `
       city
       zipcode
       rating
+      total
       items
       profilePic
       reviewed
-      reviews {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -90,6 +81,7 @@ export const onCreateReview = /* GraphQL */ `
     onCreateReview(filter: $filter, owner: $owner) {
       id
       restaurantID
+      restaurantName
       username
       rating
       message
@@ -97,7 +89,6 @@ export const onCreateReview = /* GraphQL */ `
       approved
       createdAt
       updatedAt
-      restaurantReviewsId
       owner
       __typename
     }
@@ -111,6 +102,7 @@ export const onUpdateReview = /* GraphQL */ `
     onUpdateReview(filter: $filter, owner: $owner) {
       id
       restaurantID
+      restaurantName
       username
       rating
       message
@@ -118,7 +110,6 @@ export const onUpdateReview = /* GraphQL */ `
       approved
       createdAt
       updatedAt
-      restaurantReviewsId
       owner
       __typename
     }
@@ -132,6 +123,7 @@ export const onDeleteReview = /* GraphQL */ `
     onDeleteReview(filter: $filter, owner: $owner) {
       id
       restaurantID
+      restaurantName
       username
       rating
       message
@@ -139,7 +131,6 @@ export const onDeleteReview = /* GraphQL */ `
       approved
       createdAt
       updatedAt
-      restaurantReviewsId
       owner
       __typename
     }

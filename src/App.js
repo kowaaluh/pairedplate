@@ -4,14 +4,16 @@ import '@aws-amplify/ui-react/styles.css';
 import Main from './components/Main';
 import SignUp from './components/SignUp';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import TermsofService from './components/TermsofService';
 import Login from './components/Login';
 import UserProfile from './components/UserProfile';
 import Details from './components/Details';
 import Confirmation from './components/Confirmation';
 import Forgot from './components/Forgot';
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
+import {  Navigate, Route, Routes} from 'react-router-dom';
 
 Amplify.configure(awsmobile);
 
@@ -34,6 +36,11 @@ function updateAuthStatus(authStatus) {
                 <Route path="/privacy"
                     element={
                       <PrivacyPolicy />
+                    }
+                />
+                <Route path="/termsofservice"
+                    element={
+                      <TermsofService />
                     }
                 />
                 <Route path="/forgot"
@@ -73,6 +80,7 @@ function updateAuthStatus(authStatus) {
                     element={<Navigate to="/" element={<Main isAuthenticated={isAuthenticated} />} replace />}
                 />
             </Routes>
+          <Footer/>
       </div>
   );
 }

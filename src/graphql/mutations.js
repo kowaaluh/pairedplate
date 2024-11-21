@@ -16,13 +16,10 @@ export const createRestaurant = /* GraphQL */ `
       city
       zipcode
       rating
+      total
       items
       profilePic
       reviewed
-      reviews {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -44,13 +41,10 @@ export const updateRestaurant = /* GraphQL */ `
       city
       zipcode
       rating
+      total
       items
       profilePic
       reviewed
-      reviews {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -72,13 +66,10 @@ export const deleteRestaurant = /* GraphQL */ `
       city
       zipcode
       rating
+      total
       items
       profilePic
       reviewed
-      reviews {
-        nextToken
-        __typename
-      }
       createdAt
       updatedAt
       __typename
@@ -93,6 +84,7 @@ export const createReview = /* GraphQL */ `
     createReview(input: $input, condition: $condition) {
       id
       restaurantID
+      restaurantName
       username
       rating
       message
@@ -100,7 +92,6 @@ export const createReview = /* GraphQL */ `
       approved
       createdAt
       updatedAt
-      restaurantReviewsId
       owner
       __typename
     }
@@ -114,6 +105,7 @@ export const updateReview = /* GraphQL */ `
     updateReview(input: $input, condition: $condition) {
       id
       restaurantID
+      restaurantName
       username
       rating
       message
@@ -121,7 +113,6 @@ export const updateReview = /* GraphQL */ `
       approved
       createdAt
       updatedAt
-      restaurantReviewsId
       owner
       __typename
     }
@@ -135,6 +126,7 @@ export const deleteReview = /* GraphQL */ `
     deleteReview(input: $input, condition: $condition) {
       id
       restaurantID
+      restaurantName
       username
       rating
       message
@@ -142,7 +134,6 @@ export const deleteReview = /* GraphQL */ `
       approved
       createdAt
       updatedAt
-      restaurantReviewsId
       owner
       __typename
     }
