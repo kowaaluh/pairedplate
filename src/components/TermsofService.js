@@ -37,7 +37,10 @@ function TermsofService() {
                                 3. Verification of Vegan Status
                             </p>
                             <p className="font-sans mb-2 text-base antialiased font-normal leading-relaxed text-gray-700">
-                                While we strive to provide accurate and reliable information about the restaurants and food listed on our Site, it is your responsibility to verify and confirm that the food and dining options are suitable for your dietary needs, including being vegan.                            </p>
+                                While we strive to provide accurate and reliable information about the food items and restaurants listed on our Site, we cannot guarantee that all items and restaurants listed on this site are vegan.
+                                It is your responsibility to verify and confirm that the food and dining options are suitable for your dietary needs, including being vegan.
+                                By continuing on this site, you agree that Kowaaluh LLC is not responsible for any issues or health concerns that may arise due to your dietary choices.
+                            </p>
                             <p className="font-sans mb-2 text-base antialiased font-normal leading-relaxed text-gray-700">
                                 Before patronizing any restaurant or consuming any food recommended or listed on our Site:
                             </p>
@@ -46,9 +49,6 @@ function TermsofService() {
                             </p>
                             <p className="font-sans mb-2 text-base antialiased font-normal leading-relaxed text-gray-700">
                                 Consult with Staff: If in doubt, consult with the restaurant's staff to ensure that the food does not contain animal products or ingredients that may not meet your dietary preferences or restrictions.
-                            </p>
-                            <p className="font-sans mb-2 text-base antialiased font-normal leading-relaxed text-gray-700">
-                                We cannot guarantee the accuracy of the vegan status of all food offerings listed on the Site, as menus may change, and cross-contamination may occur. Kowaaluh LLC is not responsible for any issues or health concerns that may arise due to your dietary choices.
                             </p>
                             <p className="block mb-2 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
                                 4. User Responsibilities
@@ -130,12 +130,16 @@ function TermsofService() {
                                 13. Contact Us
                             </p>
                             <p className="font-sans mb-2 text-base antialiased font-normal leading-relaxed text-gray-700">
-                                If you have any questions or concerns about these Terms and Conditions, please contact us.
+                                If you have any questions or concerns about these Terms and Conditions,
+                                 please
+                               <Link to="/contactus" className="font-semibold mx-1">
+                                  contact us.
+                               </Link>
                             </p>
                             <div className="flex justify-end ">
                                 <Link to="/">
                                     <button
-                                        type="button" className="rounded bg-green-950 px-5 py-4 font-bold text-white sm:rounded-l-md sm:rounded-r-md">
+                                        type="button" className="rounded bg-green-950 px-3 py-1.5 font-bold text-white sm:rounded-l-md sm:rounded-r-md">
                                         Back to site
                                     </button>
                                 </Link>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { signUp } from 'aws-amplify/auth';
+import { Field, Label, Switch } from '@headlessui/react';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -9,6 +10,16 @@ function SignUp() {
   const [passwordError, setPasswordError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [error, setError] = useState('');
+  const [agreed, setAgreed] = useState(false);
+
+    function handleToggle (event) {
+      if (event === true) {
+          setAgreed(true);
+
+      } else {
+          setAgreed(false);
+      }
+    };
 
     function isValidEmail() {
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -21,10 +32,16 @@ function SignUp() {
      setEmailError('');
      setError('');
 
+    if (agreed === false) {
+        setError('Please agree to our privacy policy');
+        return
+    }
+
      if (isValidEmail(email)!==true) {
         setEmailError('Please enter a valid email.');
         return;
      }
+
      const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
      if (!passwordRegex.test(password)) {
         setPasswordError('Password must be at least 8 characters long, contain a number, and a special character.');
@@ -62,11 +79,11 @@ function SignUp() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form id="signupForm" className="space-y-6">
             <div>
-              {error && <p className="mt-4 text-yellow-600 text-sm">{error}</p>}
+              {error && <p className="text-yellow-600 text-sm">{error}</p>}
               <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                 Email Address
+                {emailError && <p className="text-yellow-600 text-sm">{emailError}</p>}
               </label>
-              {emailError && <p className="mt-4 text-yellow-600 text-sm">{emailError}</p>}
               <div className="mt-2">
                 <input
                   id="email"
@@ -83,9 +100,9 @@ function SignUp() {
               <div className="flex items-center justify-between">
                 <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
                   Password
+                  {passwordError && <p className="text-yellow-600 text-sm">{passwordError}</p>}
                 </label>
               </div>
-              {passwordError && <p className="mt-4 text-yellow-600 text-sm">{passwordError}</p>}
               <div className="mt-2">
                 <input
                   id="password"
@@ -97,6 +114,28 @@ function SignUp() {
                 />
               </div>
             </div>
+          <Field className="flex gap-x-4 sm:col-span-2">
+            <div className="flex h-6 items-center">
+              <Switch
+                checked={agreed}
+                onChange={handleToggle}
+                className="group flex w-8 flex-none cursor-pointer rounded-full bg-gray-200 p-px ring-1 ring-inset ring-gray-900/5 transition-colors duration-200 ease-in-out focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-800 data-[checked]:bg-green-800"
+              >
+                <span className="sr-only">Agree to policies</span>
+                <span
+                  aria-hidden="true"
+                  className="size-4 transform rounded-full bg-white shadow-sm ring-1 ring-gray-900/5 transition duration-200 ease-in-out group-data-[checked]:translate-x-3.5"
+                />
+              </Switch>
+            </div>
+            <Label className="text-sm/6 text-gray-600">
+              By selecting this, you agree to our{' '}
+              <Link to="/privacy" className="font-semibold text-green-950">
+                privacy&nbsp;policy
+              </Link>
+              .
+            </Label>
+          </Field>
             <div>
               <button
                 onClick={handleSignUp}

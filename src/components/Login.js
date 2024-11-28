@@ -1,8 +1,6 @@
 import React , { useState } from 'react';
 import { signIn } from 'aws-amplify/auth';
 import { useNavigate, Link } from 'react-router-dom';
-import { getUser } from '../graphql/queries';
-import { client } from "../graphql/client";
 import { getCurrentUser } from 'aws-amplify/auth';
 import { signOut } from "aws-amplify/auth";
 
@@ -37,7 +35,7 @@ function Login(props) {
 
       try {
         setEmail(email.toLowerCase());
-        const response = await signIn ({
+        await signIn ({
           username: email,
           password,
         });
@@ -66,11 +64,11 @@ function Login(props) {
             <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
               <form className="space-y-6">
                 <div>
-                  {error && <p className="mt-4 text-yellow-600 text-sm">{error}</p>}
+                  {error && <p className="text-yellow-600 text-sm">{error}</p>}
                   <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                     Email Address
+                    {emailError && <p className="text-yellow-600 text-sm">{emailError}</p>}
                   </label>
-                  {emailError && <p className="mt-4 text-yellow-600 text-sm">{emailError}</p>}
                   <div className="mt-2">
                     <input
                       id="email"
@@ -87,6 +85,7 @@ function Login(props) {
                   <div className="flex items-center justify-between">
                     <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
                       Password
+                      {passwordError && <p className="text-yellow-600 text-sm">{passwordError}</p>}
                     </label>
                   </div>
                   <div className="mt-2">

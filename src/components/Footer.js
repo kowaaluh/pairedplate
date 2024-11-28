@@ -43,6 +43,16 @@ const Footer = () => {
                         </span>
                     </Link>
                 </div>
+                <div className="p-5 w-1/2 sm:w-4/12 md:w-3/12">
+                    <div className="text-xs uppercase text-black font-medium mb-6">
+                        Help
+                    </div>
+                    <Link to="/contactus">
+                        <span className="my-3 block text-gray-600 hover:text-gray-500 text-sm font-medium duration-700">
+                            Contact Us
+                        </span>
+                    </Link>
+                </div>
             </div>
             <div className="pt-2">
                 <div className="flex pb-5 px-3 m-auto pt-5

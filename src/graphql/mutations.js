@@ -1,6 +1,25 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const createFeedback = /* GraphQL */ `
+  mutation CreateFeedback(
+    $input: CreateFeedbackInput!
+    $condition: ModelFeedbackConditionInput
+  ) {
+    createFeedback(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      message
+      read
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
 export const createRestaurant = /* GraphQL */ `
   mutation CreateRestaurant(
     $input: CreateRestaurantInput!
@@ -135,6 +154,44 @@ export const deleteReview = /* GraphQL */ `
       createdAt
       updatedAt
       owner
+      __typename
+    }
+  }
+`;
+export const updateFeedback = /* GraphQL */ `
+  mutation UpdateFeedback(
+    $input: UpdateFeedbackInput!
+    $condition: ModelFeedbackConditionInput
+  ) {
+    updateFeedback(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      message
+      read
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteFeedback = /* GraphQL */ `
+  mutation DeleteFeedback(
+    $input: DeleteFeedbackInput!
+    $condition: ModelFeedbackConditionInput
+  ) {
+    deleteFeedback(input: $input, condition: $condition) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      message
+      read
+      createdAt
+      updatedAt
       __typename
     }
   }

@@ -26,9 +26,6 @@ function PrivacyPolicy() {
                                 We collect personal identification information when you voluntarily provide it to us. Specifically, we collect:
                             </p>
                             <p className="block mb-2 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
-                                Email Address: You may provide your email address when signing up for our services or contacting us.
-                            </p>
-                            <p className="block mb-2 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
                                 2. How We Use Your Information
                             </p>
                             <p className="font-sans mb-2 text-base antialiased font-normal leading-relaxed text-gray-700">
@@ -61,7 +58,7 @@ function PrivacyPolicy() {
                             <p className="font-sans mb-2 text-base antialiased font-normal leading-relaxed text-gray-700">
                                 Legal Requirements: We may disclose your information if required by law, or if we believe it is necessary to protect our rights or comply with legal processes.
                             </p>
-                            <p class="block mb-2 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
+                            <p className="block mb-2 font-sans text-base antialiased font-normal leading-relaxed text-gray-700">
                                 5. Third-Party Links
                             </p>
                             <p className="font-sans mb-2 text-base antialiased font-normal leading-relaxed text-gray-700">
@@ -98,12 +95,15 @@ function PrivacyPolicy() {
                                 9. Contact Us
                             </p>
                             <p className="font-sans mb-2 text-base antialiased font-normal leading-relaxed text-gray-700">
-                                If you have any questions or concerns about this privacy policy or how we handle your personal information, please contact us.
+                                If you have any questions or concerns about this privacy policy or how we handle your personal information, please
+                                <Link to="/contactus" className="font-semibold mx-1">
+                                  contact us.
+                                </Link>
                             </p>
                             <div className="flex justify-end ">
                                 <Link to="/">
                                     <button
-                                        type="button" className="rounded bg-green-950 px-5 py-4 font-bold text-white sm:rounded-l-md sm:rounded-r-md">
+                                        type="button" className="rounded bg-green-950 px-3 py-1.5 font-bold text-white sm:rounded-l-md sm:rounded-r-md">
                                         Back to site
                                     </button>
                                 </Link>

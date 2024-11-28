@@ -136,3 +136,51 @@ export const onDeleteReview = /* GraphQL */ `
     }
   }
 `;
+export const onCreateFeedback = /* GraphQL */ `
+  subscription OnCreateFeedback($filter: ModelSubscriptionFeedbackFilterInput) {
+    onCreateFeedback(filter: $filter) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      message
+      read
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateFeedback = /* GraphQL */ `
+  subscription OnUpdateFeedback($filter: ModelSubscriptionFeedbackFilterInput) {
+    onUpdateFeedback(filter: $filter) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      message
+      read
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteFeedback = /* GraphQL */ `
+  subscription OnDeleteFeedback($filter: ModelSubscriptionFeedbackFilterInput) {
+    onDeleteFeedback(filter: $filter) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      message
+      read
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;

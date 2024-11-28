@@ -12,8 +12,9 @@ import UserProfile from './components/UserProfile';
 import Details from './components/Details';
 import Confirmation from './components/Confirmation';
 import Forgot from './components/Forgot';
+import ContactUs from './components/ContactUs';
 import React, { useState } from 'react';
-import {  Navigate, Route, Routes} from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
 Amplify.configure(awsmobile);
 
@@ -51,6 +52,11 @@ function updateAuthStatus(authStatus) {
                 <Route path="/signup"
                     element={
                       <SignUp />
+                    }
+                />
+                <Route path="/contactus"
+                    element={
+                      <ContactUs />
                     }
                 />
                 <Route path="/confirmation"
