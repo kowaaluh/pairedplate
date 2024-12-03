@@ -107,7 +107,7 @@ function Main() {
                 />
                 <div className="absolute container max-w-full sm:max-w-4xl md:max-w-4xl lg:max-w-4xl xl:max-w-4xl p-6">
                     <form>
-                        <h1 className="m-4 text-center font-bold text-xl sm:text-lg md:text-3xl lg:text-3xl xl:text-4xl text-white">Get paired with plant-based foods</h1>
+                        <h1 className="m-4 text-center font-bold text-sm sm:text-sm md:text-3xl lg:text-3xl xl:text-4xl text-white">Get paired with plant-based foods</h1>
                             <div className="bg-white rounded flex justify-center items-center">
                                 <input
                                     className="bg-white rounded text-gray-400 outline-none focus:text-black w-full"
