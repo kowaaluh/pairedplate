@@ -1,0 +1,15 @@
+{
+  "resourceName": "pairedplatestorage",
+  "policyUUID": "8a7e999f",
+  "bucketName": "pairedplatestorage",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ"
+  ],
+  "triggerFunction": "NONE",
+  "groupAccess": {}
+}
