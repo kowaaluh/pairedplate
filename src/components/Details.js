@@ -124,10 +124,11 @@ function Details(props) {
              variables: { input: reviewData },
           });
 
-          displayRestaurant();
           closeForm();
+          displayRestaurant();
 
         } catch (error) {
+
         }
   }
 
@@ -174,7 +175,7 @@ function Details(props) {
 
   useEffect(() => {
       displayRestaurant();
-  }, []);
+  }, );
 
   return (
   <>
