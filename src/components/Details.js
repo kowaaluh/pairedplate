@@ -67,7 +67,7 @@ function Details(props) {
 
     await client.graphql({
      query: updateRestaurant,
-     variables: { input: restaurantData },
+     variables: { input: restaurantData }
     });
 
   }
