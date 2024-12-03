@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { getRestaurant, listReviews } from '../graphql/queries';
 import { updateRestaurant } from '../graphql/mutations';
@@ -45,16 +45,18 @@ function Details(props) {
         if (totalVotes === null) {
             totalVotes = 0;
         }
+
         currentTotal = currentAverage * totalVotes;
-
         newTotal = currentTotal + newVote;
-
         newTotalVotes = totalVotes + 1;
-
         newAverage = Math.round(newTotal / newTotalVotes);
+
     } else {
         newAverage = currentAverage;
+        newTotalVotes = restaurant.total;
     }
+
+    await getCurrentUser();
 
     const restaurantData = {
       id: restaurantId,
@@ -132,7 +134,7 @@ function Details(props) {
         }
   }
 
-  const displayRestaurant = async () => {
+  const displayRestaurant = useCallback(async () => {
        try {
         setLoading(true);
 
@@ -171,11 +173,11 @@ function Details(props) {
         } finally {
           setLoading(false);
         }
-  };
+  }, [restaurantId]);
 
   useEffect(() => {
-      displayRestaurant();
-  }, );
+    displayRestaurant();
+  }, [displayRestaurant]);
 
   return (
   <>
@@ -189,14 +191,10 @@ function Details(props) {
              <div className="bg-white p-4 rounded-md items-center">
               <h2 className="mb-4 text-lg font-bold text-black">Contact Information</h2>
               <div className="flex flex-col">
-
                   <span className="text-black font-semibold text-sm">Website:</span>
                   <span className="mb-2 text-green-950 hover:text-green-900 text-sm">{restaurant.website}</span>
-
-
                   <span className="space-x-2 text-black font-semibold text-sm">Address: </span>
                   <span className="text-green-950 text-sm">{restaurant.address}</span>
-
               </div>
              </div>
             </div>
