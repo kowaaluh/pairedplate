@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { getRestaurant, listReviews } from '../graphql/queries';
 import { updateRestaurant } from '../graphql/mutations';
@@ -31,6 +31,13 @@ function Details(props) {
   const [tempName, setTempName] = useState('');
   const [newRating, setNewRating] = useState(0);
   const editStars = true;
+  const reviewForm = useRef(null);
+
+  const scrollToSection = () => {
+      if (reviewForm.current) {
+        reviewForm.current.scrollIntoView({ behavior: 'smooth' });
+      }
+  };
 
   const calculateNewRating = async(currentAverage, totalVotes, newVote) => {
     var currentTotal = 0;
@@ -56,19 +63,22 @@ function Details(props) {
         newTotalVotes = restaurant.total;
     }
 
-    await getCurrentUser();
+    try {
+        const restaurantData = {
+           id: restaurantId,
+           rating: newAverage,
+           total: newTotalVotes,
+           reviewed: false
+        }
 
-    const restaurantData = {
-      id: restaurantId,
-      rating: newAverage,
-      total: newTotalVotes,
-      reviewed: false
+        await client.graphql({
+           query: updateRestaurant,
+           variables: { input: restaurantData }
+        });
+
+    } catch(error) {
+
     }
-
-    await client.graphql({
-     query: updateRestaurant,
-     variables: { input: restaurantData }
-    });
 
   }
 
@@ -89,6 +99,8 @@ function Details(props) {
     }
 
   const handleShowForm = async () => {
+    scrollToSection();
+
     try {
         const { signInDetails } = await getCurrentUser();
         getName(signInDetails.loginId);
@@ -130,7 +142,7 @@ function Details(props) {
           displayRestaurant();
 
         } catch (error) {
-
+            console.error(error);
         }
   }
 
@@ -275,7 +287,7 @@ function Details(props) {
                 <div className="border-2 border-gray-200 bg-white m-4 max-w-4xl mx-auto p-6 border-gray-100 shadow-lg rounded-lg">
                   <form className="space-y-6">
                     <div>
-                      <XMarkIcon className="w-3 h-3 flex ml-auto" onClick={closeForm}/>
+                      <XMarkIcon className="w-3 h-3 flex ml-auto" onClick={closeForm} ref={reviewForm}/>
                       {reviewError && <p className="mt-4 text-yellow-600 text-sm">{reviewError}</p>}
                       <div className="flex justify-center gap-0.5 text-green-500">
                         <Rating
