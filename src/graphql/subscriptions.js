@@ -12,6 +12,13 @@ export const onCreateRestaurant = /* GraphQL */ `
       category
       website
       state
+      city
+      zipcode
+      rating
+      total
+      items
+      profilePic
+      reviewed
       createdAt
       updatedAt
       __typename
@@ -29,6 +36,13 @@ export const onUpdateRestaurant = /* GraphQL */ `
       category
       website
       state
+      city
+      zipcode
+      rating
+      total
+      items
+      profilePic
+      reviewed
       createdAt
       updatedAt
       __typename
@@ -46,6 +60,124 @@ export const onDeleteRestaurant = /* GraphQL */ `
       category
       website
       state
+      city
+      zipcode
+      rating
+      total
+      items
+      profilePic
+      reviewed
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateReview = /* GraphQL */ `
+  subscription OnCreateReview(
+    $filter: ModelSubscriptionReviewFilterInput
+    $owner: String
+  ) {
+    onCreateReview(filter: $filter, owner: $owner) {
+      id
+      restaurantID
+      restaurantName
+      username
+      rating
+      message
+      photos
+      approved
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onUpdateReview = /* GraphQL */ `
+  subscription OnUpdateReview(
+    $filter: ModelSubscriptionReviewFilterInput
+    $owner: String
+  ) {
+    onUpdateReview(filter: $filter, owner: $owner) {
+      id
+      restaurantID
+      restaurantName
+      username
+      rating
+      message
+      photos
+      approved
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onDeleteReview = /* GraphQL */ `
+  subscription OnDeleteReview(
+    $filter: ModelSubscriptionReviewFilterInput
+    $owner: String
+  ) {
+    onDeleteReview(filter: $filter, owner: $owner) {
+      id
+      restaurantID
+      restaurantName
+      username
+      rating
+      message
+      photos
+      approved
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onCreateFeedback = /* GraphQL */ `
+  subscription OnCreateFeedback($filter: ModelSubscriptionFeedbackFilterInput) {
+    onCreateFeedback(filter: $filter) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      message
+      read
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateFeedback = /* GraphQL */ `
+  subscription OnUpdateFeedback($filter: ModelSubscriptionFeedbackFilterInput) {
+    onUpdateFeedback(filter: $filter) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      message
+      read
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteFeedback = /* GraphQL */ `
+  subscription OnDeleteFeedback($filter: ModelSubscriptionFeedbackFilterInput) {
+    onDeleteFeedback(filter: $filter) {
+      id
+      firstName
+      lastName
+      email
+      phone
+      message
+      read
       createdAt
       updatedAt
       __typename

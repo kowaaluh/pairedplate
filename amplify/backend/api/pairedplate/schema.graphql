@@ -1,8 +1,37 @@
-type Restaurant @model @auth(rules: [{ allow: public, provider: apiKey }]) {
+type Restaurant @model @auth(rules: [{ allow: public, provider: apiKey, operations: [read] }, { allow: private, provider: userPools, operations: [ read, update ] }, { allow: groups, groups: ["Admin"], operations: [create, read, update, delete] }]) {
   id: ID!
   name: String!
   address: String
   category: String!
   website: String!
   state: String
+  city: String
+  zipcode: String
+  rating: Int
+  total: Int
+  items: [String]
+  profilePic: String
+  reviewed: Boolean
 }
+
+type Review @model @auth(rules: [{ allow: owner, provider: userPools, operations: [create, read, update, delete] }, { allow: public, provider: apiKey, operations: [read] }, { allow: private, provider: userPools, operations: [ read ] }, { allow: groups, groups: ["Admin"], operations: [read, update, delete] }]) {
+  id: ID!
+  restaurantID: String!
+  restaurantName: String!
+  username: String!
+  rating: Int!
+  message: String
+  photos: [String]
+  approved: Boolean!
+}
+
+type Feedback @model @auth(rules: [{ allow: public, provider: apiKey, operations: [create] }, { allow: groups, groups: ["Admin"], operations: [read, update, delete] }]) {
+  id: ID!
+  firstName: String!
+  lastName: String
+  email: String!
+  phone: String
+  message: String!
+  read: Boolean!
+}
+
