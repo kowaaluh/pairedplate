@@ -16,7 +16,7 @@ import ContactUs from './components/ContactUs';
 import React, { useState } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-Amplify.configure(awsmobile);
+Amplify.configure({...awsmobile, aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS"});
 
 function App() {
 const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -78,12 +78,12 @@ function updateAuthStatus(authStatus) {
                 <Route
                     path="/user/:userId"
                     element={
-                        <UserProfile isAuthenticated={isAuthenticated}/>
+                        <UserProfile isAuthenticated={isAuthenticated} />
                     }
                 />
                 <Route
                     path="*"
-                    element={<Navigate to="/" element={<Main isAuthenticated={isAuthenticated} />} replace />}
+                    element={<Navigate to="/" element={<Login updateAuthStatus={updateAuthStatus} />} replace />}
                 />
             </Routes>
           <Footer/>
