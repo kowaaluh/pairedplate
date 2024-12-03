@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import banner from '../assets/banner.png';
 import { listRestaurants } from '../graphql/queries';
 import { client } from "../graphql/client";
@@ -7,7 +8,8 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { ArrowPathIcon } from '@heroicons/react/24/outline';
 import { baseUrl } from '../config/constants.js';
 
-function Main() {
+function Main(props) {
+  const navigate = useNavigate();
   const [restaurants, setRestaurants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -93,8 +95,12 @@ function Main() {
   };
 
   useEffect(() => {
+    if ( props.isAuthenticated === false ){
+          navigate('/login');
+    }
+
     getRestaurants();
-  }, []);
+  }, [props.isAuthenticated, navigate]);
 
   return (
     <div className="bg-gray-50 flex flex-col min-h-screen">

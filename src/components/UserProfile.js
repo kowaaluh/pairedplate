@@ -20,7 +20,7 @@ function UserProfile(props) {
   useEffect(() =>
     {
         if ( props.isAuthenticated === false ){
-            navigate('/');
+            navigate('/login');
         }
 
         const getData = async () => {

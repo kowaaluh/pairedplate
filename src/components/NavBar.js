@@ -10,8 +10,9 @@ const NavBar = (props) => {
     const handleLogout = async () => {
         try {
             props.updateAuthStatus(false);
-            navigate('/');
             await signOut({ global: true });
+            props.updateAuthStatus(false);
+            navigate('/login');
         } catch (err) {  }
     }
 
