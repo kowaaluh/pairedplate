@@ -9,10 +9,6 @@ import { createReview } from '../graphql/mutations';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import { getCurrentUser } from 'aws-amplify/auth';
 import { size, count, starColor, isHalf, edit } from '../config/constants.js';
-import awsmobile from '../aws-exports';
-import {Amplify} from 'aws-amplify';
-
-Amplify.configure({...awsmobile, aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS"});
 
 function Details(props) {
   const [restaurant, setRestaurant] = useState([]);
@@ -73,7 +69,8 @@ function Details(props) {
 
         await client.graphql({
            query: updateRestaurant,
-           variables: { input: restaurantData }
+           variables: { input: restaurantData },
+           authMode: 'userPool',
         });
 
     } catch(error) {
