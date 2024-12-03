@@ -107,10 +107,10 @@ function Main() {
                 />
                 <div className="absolute container max-w-full sm:max-w-4xl md:max-w-4xl lg:max-w-4xl xl:max-w-4xl p-6">
                     <form>
-                        <h1 className="m-4 text-center font-bold text-sm sm:text-sm md:text-3xl lg:text-3xl xl:text-4xl text-white">Get paired with plant-based foods</h1>
+                        <h1 className=" mb-2 sm:mb-1 text-center font-bold text-xl sm:text-xl md:text-3xl lg:text-3xl xl:text-4xl text-white">Get paired with plant-based foods</h1>
                             <div className="bg-white rounded flex justify-center items-center">
                                 <input
-                                    className="bg-white rounded text-gray-400 outline-none focus:text-black w-full"
+                                    className="p-2 bg-white rounded text-gray-400 outline-none focus:text-black w-full"
                                     type="search"
                                     name="search"
                                     onChange={inputChange}
@@ -127,7 +127,7 @@ function Main() {
                     </form>
                 </div>
             </div>
-            <div className="m-4 relative flex-col items-center justify-center overflow-hidden p-8 sm:p-8 md:p-12 m-2 sm:m-4 md:m-6 lg:m-8">
+            <div className="mb-2 relative flex-col items-center justify-center overflow-hidden p-4">
               <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4 py-12">
                   {loading ? (
                     <div className="flex justify-center items-center space-x-1 text-sm text-gray-700">
