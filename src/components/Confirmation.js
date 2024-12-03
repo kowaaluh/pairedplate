@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { confirmSignUp } from 'aws-amplify/auth';
-import { client } from "../graphql/client";
 import { getCurrentUser } from 'aws-amplify/auth';
 
 function Confirmation(props) {
@@ -10,7 +9,6 @@ function Confirmation(props) {
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
     const [error, setError] = useState('');
-    const [id, setId] = useState('');
 
     function isValidEmail() {
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -28,7 +26,7 @@ function Confirmation(props) {
          }
           try {
             setEmail(email.toLowerCase());
-            const response = await confirmSignUp({
+            await confirmSignUp({
               username: email,
               confirmationCode
             });
