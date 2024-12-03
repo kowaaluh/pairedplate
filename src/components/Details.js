@@ -70,7 +70,7 @@ function Details(props) {
         await client.graphql({
            query: updateRestaurant,
            variables: { input: restaurantData },
-           authMode: 'userPool',
+           authMode: 'AMAZON_COGNITO_USER_POOLS',
         });
 
     } catch(error) {
