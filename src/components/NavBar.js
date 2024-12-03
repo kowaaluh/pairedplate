@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { signOut } from 'aws-amplify/auth';
 import logo from '../assets/logo.png';
 import { useNavigate } from 'react-router-dom';
@@ -14,12 +14,24 @@ const NavBar = (props) => {
             await signOut({ global: true });
         } catch (err) {  }
     }
+
+    const handleCurrentUser = useCallback(async () => {
+        try {
+            await getCurrentUser();
+            props.updateAuthStatus(true);
+        } catch (err) {  }
+    }, [props])
+
     const handleUserPage = async () => {
         try {
             const { userId } = await getCurrentUser();
             navigate(`/user/${userId}`);
         } catch (err) {  }
     }
+
+      useEffect(() => {
+        handleCurrentUser();
+      }, [handleCurrentUser]);
 
   return (
     <div className="bg-white border-b sticky top-0 z-30 flex items-center justify-between">
