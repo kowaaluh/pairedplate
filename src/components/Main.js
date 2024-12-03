@@ -99,7 +99,7 @@ function Main() {
   return (
     <div className="bg-gray-50 flex flex-col min-h-screen">
         <div className="flex-1 overflow-hidden p-0 mb-0">
-            <div className="bg-orange-100 flex justify-center items-center">
+            <div className="flex justify-center items-center">
                 <img
                   src={banner}
                   alt="Paired Plate"
@@ -112,10 +112,10 @@ function Main() {
                             New restaurants added weekly
                           </span>
                         </div>
-                        <h1 className="m-4 text-center font-bold text-3xl text-white">Get paired with plant-based foods</h1>
+                        <h1 className="m-4 text-center font-bold sm:text-xs md:text-3xl lg:text-3xl xl:text-3xl text-white">Get paired with plant-based foods</h1>
                             <div className="bg-white rounded flex justify-center items-center">
                                 <input
-                                    className="bg-white rounded text-gray-400 outline-none p-2 focus:text-black w-full"
+                                    className="bg-white rounded text-gray-400 outline-none focus:text-black w-full"
                                     type="search"
                                     name="search"
                                     onChange={inputChange}
