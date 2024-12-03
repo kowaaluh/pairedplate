@@ -121,7 +121,7 @@ function UserProfile(props) {
             </div>
         )}
         <div className="flex justify-center items-center">
-          <span className="rounded-lg bg-green-950 py-1 px-4 text-center text-white font-bold text-lg">
+          <span className="rounded-lg bg-yellow-600 py-1 px-4 text-center text-white font-bold text-lg">
             See the latest 5 star restaurants...
           </span>
         </div>

@@ -8,7 +8,6 @@ function Login(props) {
    const navigate = useNavigate();
    const [email, setEmail] = useState('');
    const [password, setPassword] = useState('');
-   const [passwordError, setPasswordError] = useState('');
    const [emailError, setEmailError] = useState('');
    const [error, setError] = useState('');
 
@@ -19,18 +18,12 @@ function Login(props) {
 
    const handleSignIn = async (event) => {
      event.preventDefault();
-     setPasswordError('');
      setEmailError('');
      setError('');
 
      if (isValidEmail(email)!==true) {
         setEmailError('Please enter a valid email.');
         return;
-     }
-     const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$/;
-     if (!passwordRegex.test(password)) {
-      setPasswordError('Password must be at least 8 characters long, contain a number, and a special character.');
-      return;
      }
 
       try {
@@ -85,7 +78,6 @@ function Login(props) {
                   <div className="flex items-center justify-between">
                     <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
                       Password
-                      {passwordError && <p className="text-yellow-600 text-sm">{passwordError}</p>}
                     </label>
                   </div>
                   <div className="mt-2">
