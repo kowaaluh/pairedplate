@@ -60,7 +60,7 @@ function Details(props) {
       id: restaurantId,
       rating: newAverage,
       total: newTotalVotes,
-      reviewed: true
+      reviewed: false
     }
 
     await client.graphql({
@@ -110,6 +110,7 @@ function Details(props) {
        setReviewError('');
 
         try {
+          calculateNewRating(restaurant.rating, restaurant.total, newRating);
           const reviewData = {
               restaurantID: restaurantId,
               restaurantName: restaurant.name,
@@ -123,7 +124,6 @@ function Details(props) {
              variables: { input: reviewData },
           });
 
-          calculateNewRating(restaurant.rating, restaurant.total, newRating);
           displayRestaurant();
           closeForm();
 
@@ -180,22 +180,22 @@ function Details(props) {
   <>
     <div className="bg-gray-50 flex flex-col min-h-screen">
         <section>
-          <div className="mx-auto max-w-screen-xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <div className="mx-auto">
             <h2 className="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-2xl">
               {restaurant.name}
             </h2>
             <div className="border-2 border-white bg-white m-4 max-w-3xl mx-auto p-6 shadow-md rounded-lg">
-             <div className="bg-white p-4 rounded-md">
+             <div className="bg-white p-4 rounded-md items-center">
               <h2 className="mb-4 text-lg font-bold text-black">Contact Information</h2>
-              <div className="flex items-center space-x-8">
-                <div className="flex items-center space-x-2">
-                  <span className="text-black font-semibold text-sm">website:</span>
-                  <span className="text-green-950 hover:text-green-900 text-sm">{restaurant.website}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-black font-semibold text-sm">address: </span>
+              <div className="flex flex-col">
+
+                  <span className="text-black font-semibold text-sm">Website:</span>
+                  <span className="mb-2 text-green-950 hover:text-green-900 text-sm">{restaurant.website}</span>
+
+
+                  <span className="space-x-2 text-black font-semibold text-sm">Address: </span>
                   <span className="text-green-950 text-sm">{restaurant.address}</span>
-                </div>
+
               </div>
              </div>
             </div>
